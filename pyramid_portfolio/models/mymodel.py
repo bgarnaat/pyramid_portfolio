@@ -2,17 +2,28 @@ from sqlalchemy import (
     Column,
     Index,
     Integer,
-    Text,
+    LargeBinary,
+    Unicode,
+    UnicodeText,
 )
 
 from .meta import Base
 
 
-class MyModel(Base):
-    __tablename__ = 'models'
+class Project(Base):
+    __tablename__ = 'project'
     id = Column(Integer, primary_key=True)
-    name = Column(Text)
-    value = Column(Integer)
+    title = Column(Unicode)
+    description = Column(UnicodeText)
+    repository = Column(Unicode)
+    website = Column(Unicode)
+    image = Column(LargeBinary)
 
-
-Index('my_index', MyModel.name, unique=True, mysql_length=255)
+    def to_json(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'description': self.description,
+            'repository': self.repository,
+            'website': self.website,
+        }
