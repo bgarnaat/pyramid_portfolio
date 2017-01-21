@@ -13,3 +13,11 @@ class NewRoot(object):
     __acl__ = [
         (Allow, Authenticated, 'admin')
     ]
+
+
+def check_credentials(username, password):
+    """Verify username and password."""
+    if username and password:
+        if username == os.environ.get('AUTH_USERNAME'):
+            return pwd_context.verify(password, 'AUTH_PASSWORD')
+    return False
