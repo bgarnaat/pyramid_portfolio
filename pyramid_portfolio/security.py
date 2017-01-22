@@ -1,5 +1,5 @@
 import os
-from pyramid.authentication import AuthTkTAuthentication
+from pyramid.authentication import AuthTktAuthentication
 from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.security import Allow, Authenticated
 from pyramid.session import SignedCookieSessionFactory
@@ -27,7 +27,7 @@ def check_credentials(username, password):
 def includeme(config):
     """Pyramid security configuration."""
     auth_secret = os.environ.get('AUTH_SECRET')
-    authn_policy = AuthTkTAuthentication(secret=auth_secret, hashalg='sha512')
+    authn_policy = AuthTktAuthentication(secret=auth_secret, hashalg='sha512')
     authz_policy = ACLAuthorizationPolicy()
     config.set_authentication_policy(authn_policy)
     config.set_authorization_policy(authz_policy)
