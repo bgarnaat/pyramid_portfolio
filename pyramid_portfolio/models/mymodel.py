@@ -9,6 +9,14 @@ from sqlalchemy import (
 from .meta import Base
 
 
+class Image(Base):
+    """docstring for Image"""
+    __tablename__ = 'image'
+    id = Column(Integer, primary_key=True)
+    name = Column(Unicode)
+    data = Column(LargeBinary)
+
+
 class Project(Base):
     __tablename__ = 'project'
     id = Column(Integer, primary_key=True)
@@ -16,7 +24,7 @@ class Project(Base):
     description = Column(UnicodeText)
     repository = Column(Unicode)
     website = Column(Unicode)
-    image = Column(LargeBinary)
+    image_id = Column(Integer)
 
     def to_json(self):
         return {
@@ -25,4 +33,5 @@ class Project(Base):
             'description': self.description,
             'repository': self.repository,
             'website': self.website,
+            'image_id': self.image_id,
         }
