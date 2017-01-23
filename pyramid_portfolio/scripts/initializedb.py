@@ -8,8 +8,8 @@ from pyramid.paster import (
 
 from pyramid.scripts.common import parse_vars
 
-from ..models.meta import Base
-from ..models import (
+from pyramid_portfolio.models.meta import Base
+from pyramid_portfolio.models import (
     get_engine,
     get_session_factory,
     get_tm_session,

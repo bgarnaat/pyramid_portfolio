@@ -1,0 +1,26 @@
+{% extends 'layout.jinja2' %}
+
+
+{% block title %}{{ project.title }}{% endblock %}
+
+
+{% block body %}
+    <article>
+        <h1>{{ project.title }}</h1>
+        <h3>{{ project.repository }}</h3>
+        <h3>{{ project.website }}</h3>
+        <p>{{ project.description }}</p>
+        <img src="{{ request.route_url('image', id=project.image_id) }}">
+    </article>
+
+
+    <form method="GET" action="{{ request.route_url('edit', id=project.id) }}">
+        <input type="submit" name="Edit">
+    </form>
+
+
+    <form method="POST" action="{{ request.route_url('delete', id=project.id) }}">
+        <input type="submit" name="Delete">
+    </form>
+
+{% endblock %}
