@@ -42,26 +42,30 @@ def view_detail(request):
 def view_create(request):
     """Create new project record."""
     if request.method == 'POST':
-        if request.POST['image'].file:
-            image = Image(
-                name=request.POST['image'].filename,
-                data=request.POST['image'].file
-            )
-            request.dbsession.add(image)
         project = Project(
             title=request.POST['title'],
             description=request.POST['description'],
             repository=request.POST['repository'],
             website=request.POST['website'],
-            image_id=image.id
         )
+        if request.POST['image'] is not b'':
+            image = Image(
+                name=request.POST['image'].filename,
+                data=request.POST['image'].file.read()
+            )
+            request.dbsession.add(image)
+            request.dbsession.query(Image).all()
+
+            project.image_id = image.id
 
         request.dbsession.add(project)
+        request.dbsession.query(Project).all()
+        return HTTPFound(request.route_url('detail', id=project.id))
     return {}
 
 
 @view_config(route_name='edit',
-             renderer='../tempaltes/create.jinja2',
+             renderer='../templates/edit.jinja2',
              permission='admin')
 def view_edit(request):
     """Edit specific project record."""
@@ -73,22 +77,23 @@ def view_edit(request):
         project.repository = request.POST['repository']
         project.website = request.POST['website']
 
-        if request.POST['image'].file:
+        if request.POST['image'] is not b'':
             """Update existing image or create new image record if none exists."""
-            if project.image_id:
+            if project.image_id is not None:
                 image = request.dbsession.query(Image).get(project.image_id)
                 image.name = request.POST['image'].filename
-                image.data = request.POST['image'].filep
+                image.data = request.POST['image'].file.read()
             else:
                 image = Image(
                     name=request.POST['image'].filename,
-                    data=request.POST['image'].filep
+                    data=request.POST['image'].file.read()
                 )
                 request.dbsession.add(image)
+                request.dbsession.query(Image).all()
                 project.image_id = image.id
 
         request.dbsession.flush()
-        return HTTPFound(request.route_url('detail'))
+        return HTTPFound(request.route_url('detail', id=request.matchdict['id']))
     return {'project': project}
 
 
@@ -96,25 +101,26 @@ def view_edit(request):
              permission='admin')
 def view_delete(request):
     """Delete specific project record."""
-    if request.POST:
-        project_id = int(request.matchdict['id'])
-        project = request.dbsession.query(Project).get(project_id)
-        if project.image_id:
-            image_id = project.image_id
-            image = request.dbsession.query(Image).get(image_id)
-            request.dbsession.delete(image)
-        request.dbsession.delete(project)
+    # if request.POST:
+    project_id = int(request.matchdict['id'])
+    project = request.dbsession.query(Project).get(project_id)
+    if project.image_id:
+        image_id = project.image_id
+        image = request.dbsession.query(Image).get(image_id)
+        request.dbsession.delete(image)
+    request.dbsession.delete(project)
     return HTTPFound(request.route_url('home'))
 
 
 @view_config(route_name='login',
-             renderer='../templates/login.jinja2',)
-             # require_csrf=False)
+             renderer='../templates/login.jinja2',
+             require_csrf=False)
 def view_login(request):
     """Authenticate user."""
-    if request.POST and check_credentials(request.POST['username'], request.POST['password']):
-        auth_header = remember(request, request.POST['username'])
-        return HTTPFound(request.route_url('home'), headers=auth_header)
+    if request.POST:
+        if check_credentials(request.POST['username'], request.POST['password']):
+            auth_header = remember(request, request.POST['username'])
+            return HTTPFound(request.route_url('home'), headers=auth_header)
     return {}
 
 
