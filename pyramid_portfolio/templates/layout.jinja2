@@ -1,24 +1,61 @@
+{# -------------------- Macros -------------------- #}
+
+
+{% macro css_import(file_name) -%}
+  <link rel="stylesheet" type="text/css" href="{{ request.static_url('pyramid_portfolio:static/' + file_name) }}">
+{%- endmacro %}
+
+
+{% macro nav_link(url, name=url) -%}
+  <li class="nav-li"><a href="{{ request.route_url(url) }}">{{ name|title }}</a></li>
+{% endmacro %}
+
+
+{% macro nav_footer(icon, url) -%}
+  <li><a class="icon-{{ icon }} footer-li" target="_blank" href="{{ url }}"></a></li>
+{%- endmacro %}
+
+
+{# -------------------- Template -------------------- #}
+
+
 <!DOCTYPE html>
 <html>
 <head>
   <title>{% block title %}{% endblock %}</title>
   <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"> -->
-  <link rel="stylesheet" type="text/css" href="{{ request.static_url('pyramid_portfolio:static/normalize.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ request.static_url('pyramid_portfolio:static/base.css') }}">
+
+  <!-- import local normalize for dev work (no internet connection needed) -->
+  {{ css_import("normalize.css") }}
+
+  {{ css_import("base.css") }}
+  {{ css_import("icomoon_style.css")}}
+
 </head>
 <body>
   <nav>
     <ul>
-      <li><a href="{{ request.route_url('home') }}">Home</a></li>
+      {{ nav_link("home") }}
+
       {% if request.authenticated_userid %}
-        <li><a href="{{ request.route_url('create') }}">Add Project</a></li>
-        <li><a href="{{ request.route_url('logout') }}">Sign Out</a></li>
+        {{ nav_link("create", "add project") }}
+        {{ nav_link("logout") }}
       {% else %}
-        <li><a href="{{ request.route_url('login') }}">Sign In</a></li>
+        {{ nav_link("login") }}
       {% endif %}
+
     </ul>
   </nav>
+
   {% block body %}
   {% endblock %}
+
+  <footer>
+    <ul>
+      {{ nav_footer("github", "https://github.com/bgarnaat") }}
+      {{ nav_footer("linkedin", "https://www.linkedin.com/in/bengarnaat") }}
+      {{ nav_footer("twitter", "https://twitter.com/BGarnaat") }}
+    </ul>
+  </footer>
 </body>
 </html>

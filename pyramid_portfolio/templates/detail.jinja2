@@ -1,27 +1,63 @@
 {% extends 'layout.jinja2' %}
 
 
+{# -------------------- Macros -------------------- #}
+
+
+{% set img_default = request.static_url('pyramid_portfolio:static/default.png') %}
+{% set user_id = request.authenticated_userid %}
+
+
+{% macro detail_link(url) -%}
+    <h3 class="detail-card-text"><a href="{{ url }}">{{ url }}</a></h3>
+{%- endmacro %}
+
+
+{% macro image(image_id) -%}
+    {% set img_project = request.route_url('image', id=image_id) %}
+    {% set img_src = img_project if image_id else img_default %}
+
+    {% set login_status = 'login' if user_id else 'logout' %}
+
+    <img class="detail-card-image-{{ login_status }}" src="{{ img_src }}">
+{%- endmacro %}
+
+
+{% macro admin_link(url, project_id) -%}
+    <a class="detail-card-a" href="{{ request.route_url(url, id=project_id) }}">{{ url|title }}</a>
+{%- endmacro %}
+
+
+{# -------------------- Template -------------------- #}
+
+
 {% block title %}{{ project.title }}{% endblock %}
 
 
 {% block body %}
-    <article>
-        <h1>{{ project.title }}</h1>
-        <h3>{{ project.repository }}</h3>
-        <h3>{{ project.website }}</h3>
-        <p>{{ project.description }}</p>
-        {% if project.image_id %}
-            <img src="{{ request.route_url('image', id=project.image_id) }}">
-        {% endif %}
-    </article>
 
-    {% if request.authenticated_userid %}
-    <ul>
-        <li><a href="{{ request.route_url('edit', id=project.id) }}">Edit</a></li>
-        <li><a href="{{ request.route_url('delete', id=project.id) }}">Delete</a></li>
-    </ul>
-    {% endif %}
+    <section>
 
+        <article class="detail-card">
 
+            <h1 class="detail-card-h1">{{ project.title }}</h1>
+
+            {{ detail_link(project.repository) }}
+            {{ detail_link(project.website) }}
+
+            <p class="detail-card-text detail-card-p">{{ project.description }}</p>
+
+            {{ image(project.image_id) }}
+
+            {% if request.authenticated_userid %}
+                <ul class="detail-card-text">
+                    <li>{{ admin_link('edit', project.id) }}</li>
+                    <li>{{ admin_link('delete', project.id) }}</li>
+                </ul>
+            {% endif %}
+
+        </article>
+
+    </section>
 
 {% endblock %}

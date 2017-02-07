@@ -1,41 +1,64 @@
 {% extends 'layout.jinja2' %}
 
 
+{# -------------------- Macros -------------------- #}
+
+
+{% macro input(name, value='', type=text, size=54, rows=1) -%}
+    <p>
+        <label>{{ name }}:</label>
+        <input
+            type="{{ type }}"
+            name="{{ name }}"
+            value="{{ value }}"
+            size="{{ size }}"
+            rows="{{ rows }}"
+        >
+    </p>
+{%- endmacro %}
+
+
+{% macro text_area(name, rows=10, value='') -%}
+    <p>
+        <label>{{ name }}:</label>
+        <textarea name="{{ name }}" rows="{{ rows }}">{{ value }}</textarea>
+    </p>
+{%- endmacro %}
+
+
+{# -------------------- Template -------------------- #}
+
+
 {% block title %}Add Project{% endblock %}
 
 
 {% block body %}
 
-    <form method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="csrf_token" value="{{ request.session.get_csrf_token() }}">
-        <p>
-            <label for="title">Title: </label>
-            <input type="text" name="title" value='{{ project.title }}'>
-        </p>
-        <p>
-            <label for="description">Description: </label>
-            <input type="textarea" name="description" value="{{ project.description }}">
-        </p>
-        <p>
-            <label for="repository">Repository: </label>
-            <input type="url" name="repository" value="{{ project.repository }}">
-        </p>
-        <p>
-            <label for="website">Website: </label>
-            <input type="url" name="website" value="{{ project.website }}">
-        </p>
-        {% if project.image_id %}
+    <section>
+
+        <form method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="{{ request.session.get_csrf_token() }}">
+
+            {{ input('title', value=project.title ) }}
+            {{ text_area('description', value=project.description) }}
+            {{ input('repository', value=project.repository) }}
+            {{ input('website', value=project.website) }}
+
+            {% if project.image_id %}
+                <p>
+                    <img class="edit-project-image" src="{{ request.route_url('image', id=project.image_id) }}">
+                </p>
+            {% endif %}
+
             <p>
-                <img src="{{ request.route_url('image', id=project.image_id) }}">
+                <label for="image">Image: </label>
+                <input class="input-file" type="file" name="image" accept="image/*">
             </p>
-        {% endif %}
-        <p>
-            <label for="image">Image: </label>
-            <input type="file" name="image" accept="image/*">
-        </p>
-        <p>
-            <input type="submit" name="Submit">
-        </p>
-    </form>
+            <p>
+                <input class="input-submit" type="submit" name="Submit">
+            </p>
+        </form>
+
+    </section>
 
 {% endblock %}

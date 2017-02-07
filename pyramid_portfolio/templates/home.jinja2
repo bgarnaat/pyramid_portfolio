@@ -1,23 +1,45 @@
 {% extends 'layout.jinja2' %}
 
 
+{# -------------------- Macros -------------------- #}
+
+
+{% set img_default = request.static_url('pyramid_portfolio:static/default.png') %}
+
+
+{% macro image(image_id) -%}
+    {% set img_project = request.route_url('image', id=image_id) %}
+    {% set img_src = img_project if image_id else img_default %}
+
+    <img class="project-card-image" src="{{ img_src }}">
+{%- endmacro %}
+
+
+{% macro article(project) -%}
+    <article class="project">
+        <a href="{{ request.route_url('detail', id=project.id) }}">
+            <h2 class="project-card-title">{{ project.title }}</h2>
+
+            {{ image(project.image_id) }}
+        </a>
+    </article>
+{%- endmacro %}
+
+
+{# -------------------- Template -------------------- #}
+
+
 {% block title %}Portfolio of projects{% endblock %}
 
 
 {% block body %}
+
     <section class="project-list">
+
         {% for project in projects %}
-            <article class="project">
-                <h2><a href="{{ request.route_url('detail', id=project.id) }}">{{ project.title }}</a></h2>
-                <div class="card-text">
-                    <h5><a href="{{ project.repository }}">{{ project.repository }}</a></h3>
-                    <h5><a href="{{ project.website }}">{{ project.website }}</a></h3>
-                    <p>{{ project.description }}</p>
-                </div>
-                {% if project.image_id %}
-                    <img class="image-project" src="{{ request.route_url('image', id=project.image_id) }}">
-                {% endif %}
-            </article>
+            {{ article(project) }}
         {% endfor %}
+
     </section>
+
 {% endblock %}

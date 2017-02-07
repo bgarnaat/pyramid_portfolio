@@ -155,6 +155,12 @@ def view_image(request):
     return Response(content_type=image_type, body=image.data)
 
 
+@view_config(route_name='image_default')
+def view_image_default(request):
+    """return default image if no project image present."""
+    return Response()
+
+
 db_err_msg = """\
 |-o-|  |-o-|  |-o-|  |-o-|  <-o->  |-o-|  |-o-|  |-o-|  |-o-|\n
 \n

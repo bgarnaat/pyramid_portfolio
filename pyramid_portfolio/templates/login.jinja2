@@ -1,25 +1,38 @@
 {% extends 'layout.jinja2' %}
 
 
+{# -------------------- Macros -------------------- #}
+
+
+{% macro input(name, value='', type=text, size=30) -%}
+    <p>
+        <label>{{ name }}: </label>
+        <input type="{{ type }}" name="{{ name }}" value="{{ value }}" size="{{ size }}">
+    </p>
+{%- endmacro %}
+
+
+{# -------------------- Template -------------------- #}
+
+
 {% block title %}Sign In{% endblock %}
 
 
 {% block body %}
 
-    <h1>Sign In</h1>
+    <section>
 
-    <form method="POST">
-        <p>
-            <label for="username">Username: </label>
-            <input type="text" name="username">
-        </p>
-        <p>
-            <label for="password">Password: </label>
-            <input type="password" name="password">
-        </p>
-        <p>
-           <input type="submit" name="Login">
-        </p>
-    </form>
+        <h1>Sign In</h1>
+
+        <form method="POST">
+            {{ input('username') }}
+            {{ input('password', type='password') }}
+
+            <p>
+               <input class="input-submit" type="submit" name="Login">
+            </p>
+        </form>
+
+    </section>
 
 {% endblock %}
