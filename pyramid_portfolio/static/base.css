@@ -29,6 +29,7 @@ body {
 
 nav {
     border-bottom: 1px solid #888;
+    box-shadow: 0px 2px 2px #333;
 }
 
 ul {
@@ -53,7 +54,7 @@ section {
     position: relative;
     border-radius: 15px;
     border: 1px solid #888;
-    box-shadow: 1px 1px #333;
+    box-shadow: 1px 1px 1px #333;
 }
 
 img {
@@ -81,7 +82,8 @@ footer {
     height: 30px;
     line-height: 30px;
     width: 100%;
-    border-top: 2px solid #888;
+    border-top: 1px solid #888;
+    box-shadow: 0px -2px 2px #333;
     margin-top: 60px;
     padding: 10px 0;
     color: #488888;
@@ -95,7 +97,7 @@ footer {
     background: #444;
     border-radius: 5px;
     border: 1px solid #888;
-    box-shadow: 1px 1px #333;
+    box-shadow: 1px 1px 1px #333;
     font-size: 1.3em;
 }
 
@@ -113,7 +115,7 @@ footer {
 .detail-card {
     border-radius: 15px;
     border: 1px solid #888;
-    box-shadow: 1px 1px #333;
+    box-shadow: 1px 1px 1px #333;
 }
 
 .detail-card-image-login {
@@ -172,7 +174,7 @@ form > p > textarea {
 
 .edit-project-image {
     border: 1px solid #888;
-    box-shadow: 1px 1px #333;
+    box-shadow: 1px 1px 1px #333;
 }
 
 .footer-li {
