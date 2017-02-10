@@ -4,7 +4,7 @@ COLOR PALLETE:
     SECONDARY:       #444444
     BORDER:          #888888
     BOX-SHADOW:      #333333
-    TEXT PRIMARY:    #488888
+    TEXT PRIMARY:    #58b8b8
     TEXT SECONDARY:  #
 */
 
@@ -15,7 +15,7 @@ COLOR PALLETE:
 
 * {
     text-align: center;
-    color: #488888;
+    color: #58b8b8;
 }
 
 html, body {
@@ -65,12 +65,12 @@ img {
 }
 
 a, a:visited {
-    color: #488888;
+    color: #58b8b8;
     text-decoration: none;
 }
 
 label {
-    color: #488888;
+    color: #58b8b8;
     display: block;
 }
 
@@ -86,7 +86,7 @@ footer {
     box-shadow: 0px -2px 2px #333;
     margin-top: 60px;
     padding: 10px 0;
-    color: #488888;
+    color: #58b8b8;
 }
 
 .nav-li {
@@ -134,7 +134,7 @@ footer {
 
 .detail-card-a {
     padding: 10px 30px;
-    background: #C8C8C8;
+    background: #E8E8E8;
     border-radius: 10px;
     width: 100px;
     border: 1px solid #888;
@@ -183,7 +183,7 @@ form > p > textarea {
 }
 
 .input-file {
-    color: #488888;
+    color: #58b8b8;
 }
 
 
