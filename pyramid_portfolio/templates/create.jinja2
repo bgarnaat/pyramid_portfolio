@@ -1,0 +1,59 @@
+{% extends 'layout.jinja2' %}
+
+
+{# -------------------- Macros -------------------- #}
+
+
+{% macro input(name, value='', type=text, size=54, rows=1) -%}
+    <p>
+        <label>{{ name }}:</label>
+        <input
+            type="{{ type }}"
+            name="{{ name }}"
+            value="{{ value }}"
+            size="{{ size }}"
+            rows="{{ rows }}"
+        >
+    </p>
+{%- endmacro %}
+
+
+{% macro text_area(name, rows=10, value='') -%}
+    <p>
+        <label>{{ name }}:</label>
+        <textarea name="{{ name }}" rows="{{ rows }}">{{ value }}</textarea>
+    </p>
+{%- endmacro %}
+
+
+{# -------------------- Template -------------------- #}
+
+
+{% block title %}Add Project{% endblock %}
+
+
+{% block body %}
+
+    <section>
+
+        <form method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="{{ request.session.get_csrf_token() }}">
+
+
+            {{ input('title') }}
+            {{ text_area('description') }}
+            {{ input('repository', type='url') }}
+            {{ input('website', type='url') }}
+
+            <p>
+                <label for="image">Image: </label>
+                <input class="input-file" type="file" name="image" accept="image/*">
+            </p>
+            <p>
+                <input type="submit" name="Submit">
+            </p>
+        </form>
+
+    </section>
+
+{% endblock %}

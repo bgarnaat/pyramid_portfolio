@@ -11,6 +11,8 @@ def includeme(config):
     config.add_route('detail', '/project/{id:\d+}')
     config.add_route('edit', '/project/{id:\d+}/edit')
     config.add_route('delete', '/project/{id:\d+}/delete')
+    config.add_route('image', '/image/{id:\d+}')
+    config.add_route('image_default', '/image/default')
     # API Routes:
     config.add_route('api_get_project_all', '/api/project/all')
     config.add_route('api_get_project_by_id', '/api/project/{id:\d+}')

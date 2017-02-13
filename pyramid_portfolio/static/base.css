@@ -1,0 +1,220 @@
+/*
+COLOR PALLETE:
+    PRIMARY:         #111111
+    SECONDARY:       #444444
+    BORDER:          #888888
+    BOX-SHADOW:      #333333
+    TEXT PRIMARY:    #58b8b8
+    TEXT SECONDARY:  #
+*/
+
+
+.clearfix {
+    clear: both;
+}
+
+* {
+    text-align: center;
+    color: #58b8b8;
+}
+
+html, body {
+    height: 100%;
+    min-height: 100%;
+}
+
+body {
+    background: #111;
+}
+
+nav {
+    border-bottom: 1px solid #888;
+    box-shadow: 0px 2px 2px #333;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    list-style: none;
+    display: inline-block;
+}
+
+section {
+    text-align: center;
+    min-height: calc(100% - 265px);
+    margin: 60px;
+}
+
+.detail-card, .project {
+    margin: 60px 0;
+    background: #444;
+    position: relative;
+    border-radius: 15px;
+    border: 1px solid #888;
+    box-shadow: 1px 1px 1px #333;
+}
+
+img {
+    max-width: 100%;
+    width: 100%;
+    border-radius: 15px;
+    display: block;
+}
+
+a, a:visited {
+    color: #58b8b8;
+    text-decoration: none;
+}
+
+label {
+    color: #58b8b8;
+    display: block;
+}
+
+input {
+    color: #000;
+}
+
+footer {
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    border-top: 1px solid #888;
+    box-shadow: 0px -2px 2px #333;
+    margin-top: 60px;
+    padding: 10px 0;
+    color: #58b8b8;
+}
+
+.nav-li {
+    height: 30px;
+    line-height: 30px;
+    margin: 20px 30px;
+    padding: 10px 30px;
+    background: #444;
+    border-radius: 5px;
+    border: 1px solid #888;
+    box-shadow: 1px 1px 1px #333;
+    font-size: 1.3em;
+}
+
+.project-card-title {
+    position: absolute;
+    width: calc(100% - 30px);
+    height: 30px;
+    top: calc(50% - 45px);
+    left: 0;
+    padding: 15px;
+    background: rgba(191, 191, 191, 0.85);
+    color: black;
+}
+
+.detail-card {
+    border-radius: 15px;
+    border: 1px solid #888;
+    box-shadow: 1px 1px 1px #333;
+}
+
+.detail-card-image-login {
+    border-radius: 0;
+    border-top: 1px solid #888;
+}
+
+.detail-card-image-logout {
+
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-top: 1px solid #888;
+}
+
+.detail-card-a {
+    padding: 10px 30px;
+    background: #E8E8E8;
+    border-radius: 10px;
+    width: 100px;
+    border: 1px solid #888;
+}
+
+.detail-card-h1 {
+    color: #000;
+}
+
+.detail-card-text {
+    padding: 30px 30px 15px;
+    border-top: 1px solid #888;
+    font-size: 1.3em;
+    color: #000
+}
+
+.detail-card-p {
+    white-space: pre-line;
+}
+
+.detail-card > p {
+    text-align: justify;
+}
+
+form > p > textarea {
+    color: #000;
+    width: 31em;
+}
+
+.detail-card > ul {
+    padding: 15px;
+}
+
+.detail-card > ul > li {
+    margin: 10px 30px;
+}
+
+.edit-project-image {
+    border: 1px solid #888;
+    box-shadow: 1px 1px 1px #333;
+}
+
+.footer-li {
+    font-size: 30px;
+    margin: 0 50px;
+}
+
+.input-file {
+    color: #58b8b8;
+}
+
+
+/* ==================== MEDIA QUERY:  640px ==================== */
+
+
+@media (min-width: 641px) {
+
+    section {
+        margin: 30px;
+    }
+
+    .detail-card-text {
+        padding: 15px 15px 0;
+    }
+
+    .project {
+        width: calc(33% - 62px);
+        display: inline-block;
+        margin: 30px;
+    }
+}
+
+
+/* ==================== MEDIA QUERY:  1024px ==================== */
+
+
+@media (min-width: 1025px) {
+    section {
+        margin: 120px;
+    }
+
+}
+
