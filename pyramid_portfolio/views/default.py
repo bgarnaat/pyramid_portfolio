@@ -131,19 +131,21 @@ def view_logout(request):
     return HTTPFound(request.route_url('home'), headers=auth_header)
 
 
-@view_config(route_name='api_get_project_all')
+@view_config(route_name='api_get_project_all', renderer='json')
 def api_get_project_all(request):
     """Return list of projects as JSON."""
     projects = request.dbsession.query(Project).all()
-    return [project.to_json() for project in projects]
+    output = [project.to_json() for project in projects]
+    return output
 
 
-@view_config(route_name='api_get_project_by_id')
+@view_config(route_name='api_get_project_by_id', renderer='json')
 def api_get_project_by_id(request):
     """Return requestsed project as JSON."""
-    project_id = int(request.match['id'])
+    project_id = int(request.matchdict['id'])
     project = request.dbsession.query(Project).get(project_id)
-    return project.to_json()
+    output = project.to_json()
+    return output
 
 
 @view_config(route_name='image')
