@@ -204,6 +204,7 @@ form > p > textarea {
         width: calc(33% - 62px);
         display: inline-block;
         margin: 30px;
+        vertical-align: top;
     }
 }
 
